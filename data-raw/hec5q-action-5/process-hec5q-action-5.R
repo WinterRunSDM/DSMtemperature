@@ -9,8 +9,10 @@ hec_daily <- hec_raw |>
 # STREAM TEMPERATURE -----------------------------------------------------------
 
 ## hec5q ----
+# v2 (BLW CLEAR CREEK) selected over v1 (BLW KESWICK + RED BLUFF DAM) for Upper Sacramento River
+# because its residual trends are most consistent with Clear Creek and Cottonwood Creek.
+# See: https://github.com/BDO-Science/SIT-DSM-LTO/blob/40f2369910765b0fad8841423748360bf51806bd/cvpiaTemperature/Scripts/DSS%20workflow_cvpiaTemperature_CalSim%203_action5.R
 watershed_name_mapping <- c(
-  upper_sacramento_river_v1 = "Upper Sacramento River",
   upper_sacramento_river_v2 = "Upper Sacramento River",
   clear_creek               = "Clear Creek",
   cottonwood_creek          = "Cottonwood Creek"
