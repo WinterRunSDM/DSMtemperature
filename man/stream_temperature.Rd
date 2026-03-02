@@ -39,11 +39,11 @@ for the three HEC-5Q runs, i.e. AR_5QCS.dat and AR_5Q-CL.OUT.
 
 \strong{Empirical Data} \cr
 Only the Lower Sacramento had sufficient measured water temperature during
-the period of the CVPIA salmon life cycle model. The few missing values were
+the period of the R2R salmon life cycle model. The few missing values were
 imputed using \href{https://www.rdocumentation.org/packages/forecast/versions/8.1/topics/na.interp}{\code{forecast::na.interp}}.
 
  \strong{Double Regression Modeling} \cr
- Data from many temperature gauges was collected from several CVPIA watersheds.
+ Data from many temperature gauges was collected from several R2R watersheds.
  In these watersheds, a double regression technique was employed to predict water
  temperature based on equilibrium temperature and the river mile of interest.
  Equilibrium temperature is the temperature a pool of water would approach if
@@ -58,7 +58,7 @@ For streams without major dams, water temperature is highly correlated with air 
 For each watershed not included in the HEC-5Q model that had partial water temperature data,
 a linear model was fitted to estimate water temperature as a function of air temperature.
 
-Generally, the air temperature record spans both the period of the CVPIA salmon life cycle model
+Generally, the air temperature record spans both the period of the R2R salmon life cycle model
 and the complete period of record of available water temperature data. In the
 cases where there were missing air temperature values between 1979-1999, we imputed the missing values using
 \href{https://www.rdocumentation.org/packages/forecast/versions/8.1/topics/na.interp}{\code{forecast::na.interp}}

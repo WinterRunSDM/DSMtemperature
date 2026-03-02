@@ -157,6 +157,17 @@ ggplot() +
   geom_line(data = monthly_mean_temperature_2008_2009, aes(x = date, y = monthly_mean_temp_c, color = "2008 Biop")) +
   facet_wrap(~watershed)
 
+# action 5 updates -------
+source("data-raw/hec5q-action-5/process-hec5q-action-5.R")
+
+monthly_mean_temperature_action_5 <- bind_rows(
+  hec5q_monthly,
+  regression_monthly,
+  empirical_monthly,
+  monthly_mean_temperature_2018_2019 |>
+    filter(watershed %in% c("Cow Creek", "Stony Creek", "Thomes Creek", "American River"))
+)
+
 # stream temperature -----------------------------------------------------------
 generate_stream_temperature <- function(monthly_mean_temperature_data) {
 stream_temperature <- monthly_mean_temperature_data %>%
@@ -175,6 +186,8 @@ return(stream_temperature)
 stream_temp_2008_2009 <- generate_stream_temperature(monthly_mean_temperature_2008_2009)
 stream_temp_2018_2019 <- generate_stream_temperature(monthly_mean_temperature_2018_2019)
 stream_temp_run_of_river <- generate_stream_temperature(monthly_mean_temperature_run_of_river)
+# action 5 updates -------
+stream_temp_action_5 <- generate_stream_temperature(monthly_mean_temperature_action_5)
 
 
 # Check how new modeled results compare to old calsim results
@@ -187,7 +200,9 @@ stream_temp_run_of_river <- generate_stream_temperature(monthly_mean_temperature
 # create temp with both 2008-2009 biop and 2018-2019 biop/itp ---------------
 stream_temperature <- list(biop_2008_2009 = stream_temp_2008_2009,
                            biop_itp_2018_2019 = stream_temp_2018_2019,
-                           run_of_river = stream_temp_run_of_river)
+                           run_of_river = stream_temp_run_of_river,
+                           # action 5 updates -------
+                           action_5 = stream_temp_action_5)
 
 usethis::use_data(stream_temperature, overwrite = TRUE)
 
@@ -296,10 +311,15 @@ degree_days_2018_2019 <- generate_degree_days(monthly_mean_temperature_2018_2019
                                               temperatures_2018_2019, "2018 & 2019 Hec5q", no_spawning_regions)
 degree_days_run_of_river <- generate_degree_days(monthly_mean_temperature_run_of_river,
                                               temperatures_run_of_river, "Run of River Hec5q", no_spawning_regions)
+# action 5 updates -------
+degree_days_action_5 <- generate_degree_days(monthly_mean_temperature_action_5,
+                                             temperatures_action_5, "action 5", no_spawning_regions)
 
 degree_days <- list(biop_2008_2009 = degree_days_2008_2009,
                     biop_itp_2018_2019 = degree_days_2018_2019,
-                    run_of_river = degree_days_run_of_river)
+                    run_of_river = degree_days_run_of_river,
+                    # action 5 updates -------
+                    action_5 = degree_days_action_5)
 
 usethis::use_data(degree_days, overwrite = TRUE)
 
