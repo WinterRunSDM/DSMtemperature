@@ -376,9 +376,10 @@ temperatures_action_5_abv_dam <- temperatures_action_5 |>
   mutate(mean_daily_temp_C = ifelse(mean_daily_temp_C >= 13, 13, mean_daily_temp_C),
          mean_daily_temp_F = ifelse(mean_daily_temp_F >= 55.4, 55.4, mean_daily_temp_F))
 
-degree_days_action_5_wr_abv_dam <- generate_degree_days(monthly_mean_temperature_action_5_abv_dam,
-                                                        temperatures_action_5_abv_dam, "Action 5 Hec5q",
-                                                        no_spawning_regions_sr)
+degree_days_wr_abv_dam <- generate_degree_days(monthly_mean_temperature_action_5_abv_dam,
+                                               temperatures_action_5_abv_dam, "Action 5 Hec5q",
+                                               no_spawning_regions_sr)
+usethis::use_data(degree_days_wr_abv_dam, overwrite = TRUE)
 
 # FR and  SR Egg temperature effect -----
 mean_temperature_effect <- read_csv('data-raw/egg2fry_temp.csv') %>%
