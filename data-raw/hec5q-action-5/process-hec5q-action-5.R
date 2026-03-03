@@ -27,7 +27,8 @@ hec5q_monthly <- hec_daily |>
   group_by(watershed, year, month) |>
   summarize(monthly_mean_temp_c = mean(value_c), .groups = "drop") |>
   mutate(date = ymd(paste(year, month, 1))) |>
-  select(date, watershed, monthly_mean_temp_c)
+  select(date, watershed, monthly_mean_temp_c) |>
+  filter(!is.na(watershed))
 
 ## regression ----
 regression_monthly <- bind_rows(
@@ -61,7 +62,8 @@ temperatures_action_5 <- hec_daily |>
          watershed = watershed_name_mapping[dataset],
          mean_daily_temp_F = values,
          mean_daily_temp_C = (values - 32) * 5 / 9) |>
-  filter(year(date) %in% 1979:2000) |>
+  filter(year(date) %in% 1979:2000,
+         !is.na(watershed)) |>
   group_by(date, watershed) |>
   summarize(mean_daily_temp_F = mean(mean_daily_temp_F),
             mean_daily_temp_C = mean(mean_daily_temp_C),
