@@ -249,6 +249,10 @@ no_spawning_regions_sr <- DSMflow::watershed_ordering %>%
   filter(order %in% c(16, 17, 21, 22, 24)) %>%
   pull(watershed)
 
+no_spawning_regions_wr <- DSMflow::watershed_ordering %>%
+  filter(order %in% c(16, 17, 21, 22, 24)) %>%
+  pull(watershed)
+
 
 # take modeled mean monthly flow and multiple by number of days to estimate degree days
 generate_degree_days <- function(monthly_mean_temperature, temperatures, hec_version, no_spawning_regions) {
@@ -364,6 +368,17 @@ degree_days_sr_abv_dam <- list(biop_itp_2018_2019 = degree_days_2018_2019_sr_abv
                        run_of_river = degree_days_run_of_river_sr_abv_dam)
 
 usethis::use_data(degree_days_sr_abv_dam, overwrite = TRUE)
+
+# winter run degree days above dam for action 5
+monthly_mean_temperature_action_5_abv_dam <- monthly_mean_temperature_action_5 |>
+  mutate(monthly_mean_temp_c = ifelse(monthly_mean_temp_c >= 13, 13, monthly_mean_temp_c))
+temperatures_action_5_abv_dam <- temperatures_action_5 |>
+  mutate(mean_daily_temp_C = ifelse(mean_daily_temp_C >= 13, 13, mean_daily_temp_C),
+         mean_daily_temp_F = ifelse(mean_daily_temp_F >= 55.4, 55.4, mean_daily_temp_F))
+
+degree_days_action_5_wr_abv_dam <- generate_degree_days(monthly_mean_temperature_action_5_abv_dam,
+                                                        temperatures_action_5_abv_dam, "Action 5 Hec5q",
+                                                        no_spawning_regions_sr)
 
 # FR and  SR Egg temperature effect -----
 mean_temperature_effect <- read_csv('data-raw/egg2fry_temp.csv') %>%

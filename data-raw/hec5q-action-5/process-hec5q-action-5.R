@@ -71,4 +71,6 @@ temperatures_action_5 <- hec_daily |>
 # TODO: add action 5 updates if spring run updates are needed
 
 # DEGREE DAYS SR ABV DAM -------------------------------------------------------
-# TODO: add action 5 updates if spring run updates are needed
+# TODO: this is done in prepare_data_for_model.R but can be moved over
+
+
